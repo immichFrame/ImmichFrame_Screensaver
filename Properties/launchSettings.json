@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ImmichFrame_Screensaver": {
+      "commandName": "Project",
+      "commandLineArgs": "/s"
+    }
+  }
+}
