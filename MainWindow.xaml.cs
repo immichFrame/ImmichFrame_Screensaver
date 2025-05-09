@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Microsoft.Web.WebView2.Core;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -7,7 +8,7 @@ namespace ImmichFrame_Screensaver
     public partial class MainWindow : Window
     {
         //public static string settingsPath = @"C:\ProgramData\ImmichFrame_Screensaver\Settings.json";
-        public static string settingsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\ImmichFrame_Screensaver\";
+        public static string settingsPath = Path.Combine(Path.GetTempPath(), "ImmichFrame_Screensaver");
         private const int WH_KEYBOARD_LL = 13;
         private const int WH_MOUSE_LL = 14;
 
@@ -44,26 +45,67 @@ namespace ImmichFrame_Screensaver
             var settings = new Settings();
             settings.ShowDialog();
         }
-        private void LoadWebView()
+        //private void LoadWebView()
+        //{
+        //    if (File.Exists(Path.Combine(MainWindow.settingsPath, "Settings.json")))
+        //    {
+        //        var strUrl = File.ReadAllText(Path.Combine(MainWindow.settingsPath, "Settings.json"));
+        //        if (!string.IsNullOrWhiteSpace(strUrl))
+        //        {
+        //            WebView.Source = new Uri(strUrl);
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Please configure settings!");
+        //            CloseScreensaver();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        WebView.Source = new Uri("https://github.com/immichFrame/ImmichFrame/raw/main/design/16x9%20frame.svg");
+        //    }
+        //}
+        private async void LoadWebView()
         {
-            if (File.Exists(Path.Combine(MainWindow.settingsPath, "Settings.json")))
+            try
             {
-                var strUrl = File.ReadAllText(Path.Combine(MainWindow.settingsPath, "Settings.json"));
-                if (!string.IsNullOrWhiteSpace(strUrl))
+                string userDataFolder = Path.Combine(settingsPath, "WebView2");
+
+                // Ensure directory exists
+                Directory.CreateDirectory(userDataFolder);
+
+                var options = new CoreWebView2EnvironmentOptions("--allow-insecure-localhost --allow-running-insecure-content");
+                var env = await CoreWebView2Environment.CreateAsync(null, userDataFolder, options);
+                await WebView.EnsureCoreWebView2Async(env);
+
+                // Determine URL
+                string url = "https://github.com/immichFrame/ImmichFrame/raw/main/design/16x9%20frame.svg";
+
+                string settingsFile = Path.Combine(MainWindow.settingsPath, "Settings.json");
+                if (File.Exists(settingsFile))
                 {
-                    WebView.Source = new Uri(strUrl);
+                    string strUrl = File.ReadAllText(settingsFile);
+                    if (!string.IsNullOrWhiteSpace(strUrl))
+                    {
+                        url = strUrl.Trim();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please configure settings!");
+                        CloseScreensaver();
+                        return;
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Please configure settings!");
-                    CloseScreensaver();
-                }
+
+                WebView.Source = new Uri(url);
             }
-            else
+            catch (Exception ex)
             {
-                WebView.Source = new Uri("https://github.com/immichFrame/ImmichFrame/raw/main/design/16x9%20frame.svg");
+                MessageBox.Show("Failed to initialize WebView2: " + ex.Message);
+                CloseScreensaver();
             }
         }
+
         private void SetUpHooks()
         {
             // Set the keyboard hook

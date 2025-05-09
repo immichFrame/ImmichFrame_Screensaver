@@ -11,9 +11,9 @@ namespace ImmichFrame_Screensaver
         public Settings()
         {
             InitializeComponent();
-            if (File.Exists(MainWindow.settingsPath))
+            if (File.Exists(Path.Combine(MainWindow.settingsPath, "Settings.json")))
             {
-                var strUrl = File.ReadAllText(MainWindow.settingsPath);
+                var strUrl = File.ReadAllText(Path.Combine(MainWindow.settingsPath, "Settings.json"));
                 if (!string.IsNullOrWhiteSpace(strUrl))
                 {
                     UrlTextBox.Text = strUrl;
