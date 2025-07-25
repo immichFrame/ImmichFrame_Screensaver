@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/immichFrame/ImmichFrame_Screensaver">
-    <img src="AppIcon.png" alt="Logo" width="200" height="200">
+    <img src="AppIcon.ico" alt="Logo" width="200" height="200">
   </a>
 
   <h3 align="center">ImmichFrame Windows Screensaver</h3>
