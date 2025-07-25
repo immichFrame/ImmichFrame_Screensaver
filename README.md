@@ -9,7 +9,7 @@
     Windows screensaver for <a href="https://github.com/immichFrame/ImmichFrame">ImmichFrame</a>
     <br />
     <br />
-    <a href="https://immichframe.online/docs/getting-started/apps#desktop-windows-macos-linux">Documentation</a>
+    <a href="[https://immichframe.online/docs/getting-started/apps#desktop-windows-macos-linux](https://immichframe.online/docs/overview)">ImmichFrame Docs</a>
   <p>
 </div>
 
