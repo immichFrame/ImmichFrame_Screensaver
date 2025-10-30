@@ -14,7 +14,7 @@
 </div>
 
 ## 📄 Documentation
-## Installation
+### Installation
 
 
 1. **Download the latest version**  
@@ -43,7 +43,7 @@
 
 ---
 
-## Notes
+### Notes
 
 
 - The screensaver must have access to the network or Internet to fetch images from your backend.  
@@ -51,7 +51,7 @@
 
 ---
 
-## Troubleshooting
+### Troubleshooting
 
 - If the screensaver does not appear in the list, make sure the `.scr` file is in a public or system folder.  
 - Ensure your backend URL is correct and reachable from your machine.  
@@ -59,7 +59,7 @@
 
 ---
 
-## Uninstallation
+### Uninstallation
 
 - Navigate to `C:\Windows\System32` or the folder where the `.scr` file is located.  
 - Delete the `.scr` file.  
