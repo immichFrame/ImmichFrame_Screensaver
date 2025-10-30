@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
 
 
 namespace ImmichFrame_Screensaver
@@ -24,7 +22,7 @@ namespace ImmichFrame_Screensaver
                 }
                 else if (arg.StartsWith("/c"))
                 {
-                    var settings = new Settings();
+                    var settings = new SettingsWindow();
                     settings.ShowDialog();
                     Shutdown();
                 }
